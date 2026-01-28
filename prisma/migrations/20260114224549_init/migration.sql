@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Idea" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "text" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'approved',
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "yesCount" INTEGER NOT NULL DEFAULT 0,
+    "noCount" INTEGER NOT NULL DEFAULT 0
+);

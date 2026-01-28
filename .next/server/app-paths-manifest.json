@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/admin/ideas/[id]/route": "app/api/admin/ideas/[id]/route.js",
+  "/api/admin/ideas/route": "app/api/admin/ideas/route.js",
+  "/api/admin/login/route": "app/api/admin/login/route.js",
+  "/api/ideas/route": "app/api/ideas/route.js",
+  "/api/vote/route": "app/api/vote/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js"
+}

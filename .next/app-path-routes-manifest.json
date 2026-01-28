@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/admin/login/page": "/admin/login",
+  "/admin/page": "/admin",
+  "/api/admin/ideas/[id]/route": "/api/admin/ideas/[id]",
+  "/api/admin/ideas/route": "/api/admin/ideas",
+  "/api/admin/login/route": "/api/admin/login",
+  "/api/ideas/route": "/api/ideas",
+  "/api/vote/route": "/api/vote",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/"
+}

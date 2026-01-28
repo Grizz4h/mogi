@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+
+model Idea {
+  id        String   @id
+  text      String
+  status    String   @default("pending")
+    @@index([status])
+  createdAt DateTime @default(now())
+  yesCount  Int      @default(0)
+  noCount   Int      @default(0)
+}
