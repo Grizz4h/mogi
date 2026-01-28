@@ -494,7 +494,7 @@ export default function SwipeDeck() {
               </div>
             )}
             <div className="cardTop">
-              <div className="badge">Vorschlag</div>
+              <div className="badge">Antrag</div>
               <div className="pills">
                 <div className="pill">👍 {current.yesCount}</div>
                 <div className="pill">👎 {current.noCount}</div>
@@ -519,7 +519,7 @@ export default function SwipeDeck() {
             }}
           >
             <div className="cardTop">
-              <div className="badge">Vorschlag</div>
+              <div className="badge">Antrag</div>
               <div className="pills">
                 <div className="pill">👍 {current.yesCount}</div>
                 <div className="pill">👎 {current.noCount}</div>
