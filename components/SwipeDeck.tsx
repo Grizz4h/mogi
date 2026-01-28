@@ -502,8 +502,9 @@ export default function SwipeDeck() {
             </div>
             <div className="ideaText">{current.text}</div>
             <div className="hint">
-              <span>← nope</span>
-              <span>yes →</span>
+              <span>←
+              </span>
+              <span>→</span>
             </div>
           </div>
         )}
