@@ -26,6 +26,8 @@ export default function AdminIdeas() {
   const [editId, setEditId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "release">("all");
+  const [filterMonth, setFilterMonth] = useState<string>("all");
+  const [filterYear, setFilterYear] = useState<string>("all");
 
   async function fetchIdeas() {
     setLoading(true);
@@ -87,10 +89,29 @@ export default function AdminIdeas() {
     }
   }
 
-  const filteredIdeas = ideas.filter(idea => {
-    if (filter === "all") return true;
-    return idea.status === filter;
+  const filteredIdeas = ideas.filter((idea) => {
+    if (filter !== "all" && idea.status !== filter) return false;
+
+    const date = new Date(idea.createdAt);
+    if (filterYear !== "all" && String(date.getFullYear()) !== filterYear) return false;
+    if (filterMonth !== "all") {
+      const monthIndex = date.getMonth() + 1;
+      if (String(monthIndex).padStart(2, "0") !== filterMonth) return false;
+    }
+
+    return true;
   });
+
+  const monthOptions = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0"));
+  const yearOptions = Array.from(
+    new Set(
+      ideas
+        .map((idea) => new Date(idea.createdAt).getFullYear())
+        .filter((y) => !Number.isNaN(y))
+    )
+  )
+    .sort((a, b) => b - a)
+    .map(String);
 
   useEffect(() => {
     fetchIdeas();
@@ -99,7 +120,7 @@ export default function AdminIdeas() {
   return (
     <main style={{ maxWidth: 600, margin: "40px auto", padding: "0 14px" }}>
       <h1>Ideen Moderation</h1>
-      <div style={{ marginBottom: 20, display: "flex", gap: 8 }}>
+      <div style={{ marginBottom: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
         <button
           onClick={() => setFilter("all")}
           style={{
@@ -139,6 +160,38 @@ export default function AdminIdeas() {
         >
           Freigegeben ({ideas.filter(i => i.status === "release").length})
         </button>
+      </div>
+      <div style={{ marginBottom: 20, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+        <label style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 12, color: "#888" }}>
+          Jahr
+          <select
+            value={filterYear}
+            onChange={(e) => setFilterYear(e.target.value)}
+            style={{ padding: "6px 8px", borderRadius: 6, border: "1px solid #999" }}
+          >
+            <option value="all">Alle</option>
+            {yearOptions.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label style={{ display: "flex", flexDirection: "column", gap: 4, fontSize: 12, color: "#888" }}>
+          Monat
+          <select
+            value={filterMonth}
+            onChange={(e) => setFilterMonth(e.target.value)}
+            style={{ padding: "6px 8px", borderRadius: 6, border: "1px solid #999" }}
+          >
+            <option value="all">Alle</option>
+            {monthOptions.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
       {loading && <div>Lade...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
@@ -202,8 +255,11 @@ export default function AdminIdeas() {
             ) : (
               <>
                 <div style={{ marginBottom: 8, fontSize: 14 }}>{idea.text}</div>
-                <div style={{ marginBottom: 8, fontSize: 12, color: "#999" }}>
-                  Status: {idea.status}
+                <div style={{ marginBottom: 8, fontSize: 12, color: "#999", display: "flex", gap: 10, flexWrap: "wrap" }}>
+                  <span>Status: {idea.status}</span>
+                  <span>
+                    Erstellt: {new Date(idea.createdAt).toLocaleDateString("de-DE")}
+                  </span>
                 </div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   <button
